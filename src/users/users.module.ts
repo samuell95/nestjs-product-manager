@@ -30,7 +30,7 @@ import { JwtStrategy } from '../auth/jwt.strategy'
           publicKey: Buffer.from(publicKey, 'base64'),
           signOptions: {
             algorithm: 'RS256',
-            expiresIn: configService.get<string | number>('JWT_EXPIRE', '3d'),
+            expiresIn: configService.get<string | number>('JWT_EXPIRE'),
           },
         }
       },
