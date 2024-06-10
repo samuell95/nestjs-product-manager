@@ -1,0 +1,15 @@
+version: '3.8'
+
+services:
+  mongoDb: 
+    container_name: product_management-mg
+    image: bitnami/mongodb
+    ports:
+       - "27017:27017"
+    environment:
+      MONGODB_ROOT_USER: root
+      MONGODB_ROOT_PASSWORD: docker
+      MONGODB_DATABASE: product_management
+      MGDATA: /data/mongoDb
+    volumes:
+      - ./data/mg:/data/mongoDb

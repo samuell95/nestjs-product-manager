@@ -1,0 +1,79 @@
+
+@baseUrl = http://localhost:3333
+@authToken = {{ authenticate.response.body.token.access_token }}
+
+
+# @name create_account
+Post {{baseUrl}}/users
+content-type: application/json
+
+{
+  "email": "wildiane@gmai3l.com",
+  "password": "numb88908404",
+  "name": "Wildiane"
+}
+
+###
+
+# @name authenticate
+POST {{baseUrl}}/users/sessions
+content-type: application/json
+
+{
+  "email": "wildiane@gmail3.com",
+  "password": "numb88908404"
+}
+
+###
+
+GET {{baseUrl}}/users
+###
+
+GET {{baseUrl}}/users/6667027cead9679a8cdb5ab7
+###
+
+# @name adicionar_novo_produto
+POST {{baseUrl}}/products
+content-type: application/json
+Authorization: Bearer {{authToken}}
+
+{
+"nome": "mesa",
+"descricao": "confortavel",
+"preco": 1000.00,
+"categoria": "Eletrônicos",
+"estoque": 100
+}
+
+### 
+
+# @name listar_todos_produtos
+GET {{baseUrl}}/products
+Authorization: Bearer {{authToken}}
+
+###
+
+# @name obter_detalhes_produto_específico
+GET {{baseUrl}}/products/666702a1ead9679a8cdb5ac0
+Authorization: Bearer {{authToken}}
+
+###
+
+# @name atualizar_informações_produto
+PUT {{baseUrl}}/products/666708a8ad46652d257f185f
+content-type: application/json
+Authorization: Bearer {{authToken}}
+
+{
+"nome": "pc",
+"descricao": "confortavel",
+"preco": 900.00,
+"categoria": "Movel",
+"estoque": 100
+}
+
+###
+
+# @name atualizar_informações_produto
+DELETE {{baseUrl}}/products/666708a8ad46652d257f185f
+Authorization: Bearer {{authToken}}
