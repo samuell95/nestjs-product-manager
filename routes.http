@@ -31,10 +31,10 @@ content-type: application/json
 Authorization: Bearer {{authToken}}
 
 {
-  "name": "mesa",
-  "description": "confortavel",
+  "name": "novo produto",
+  "description": "produto novo",
   "price": "1000.00",
-  "category": "Eletrônicos",
+  "category": "novo",
   "stock": "100"
 }
 ### 
@@ -57,10 +57,11 @@ content-type: application/json
 Authorization: Bearer {{authToken}}
 
 {
-  "name": "garrafas",
-  "price": "500",
-  "category": "objeto",
-  "stock": "50"
+  "name": "novo produto 2",
+  "description": "produto novo 2",
+  "price": "1000.00",
+  "category": "novo",
+  "stock": "500"
 }
 
 ###
