@@ -1,79 +1,70 @@
 
 @baseUrl = http://localhost:3333
-@authToken = {{ authenticate.response.body.token.access_token }}
-
+@authToken = {{ authenticate.response.body.access_token }}
 
 # @name create_account
 Post {{baseUrl}}/users
 content-type: application/json
 
 {
-  "email": "wildiane@gmai3l.com",
-  "password": "numb88908404",
-  "name": "Wildiane"
+  "email": "johnDoe@gmail.com",
+  "password": "123456",
+  "name": "John Doe"
 }
 
 ###
 
 # @name authenticate
-POST {{baseUrl}}/users/sessions
+POST {{baseUrl}}/sessions
 content-type: application/json
 
 {
-  "email": "wildiane@gmail3.com",
-  "password": "numb88908404"
+  "email": "johnDoe@gmail.com",
+  "password": "123456"
 }
 
 ###
 
-GET {{baseUrl}}/users
-###
-
-GET {{baseUrl}}/users/6667027cead9679a8cdb5ab7
-###
-
-# @name adicionar_novo_produto
+# @name create_new_product
 POST {{baseUrl}}/products
 content-type: application/json
 Authorization: Bearer {{authToken}}
 
 {
-"nome": "mesa",
-"descricao": "confortavel",
-"preco": 1000.00,
-"categoria": "Eletrônicos",
-"estoque": 100
+  "name": "mesa",
+  "description": "confortavel",
+  "price": "1000.00",
+  "category": "Eletrônicos",
+  "stock": "100"
 }
-
 ### 
 
-# @name listar_todos_produtos
+# @name list_all_product
 GET {{baseUrl}}/products
 Authorization: Bearer {{authToken}}
 
 ###
 
-# @name obter_detalhes_produto_específico
-GET {{baseUrl}}/products/666702a1ead9679a8cdb5ac0
+# @name get_specific_product_details
+GET {{baseUrl}}/products/666aa324f8dbcff69bfa776f
 Authorization: Bearer {{authToken}}
 
 ###
 
-# @name atualizar_informações_produto
-PUT {{baseUrl}}/products/666708a8ad46652d257f185f
+# @name update_product_information
+PUT {{baseUrl}}/products/666aa324f8dbcff69bfa776f
 content-type: application/json
 Authorization: Bearer {{authToken}}
 
 {
-"nome": "pc",
-"descricao": "confortavel",
-"preco": 900.00,
-"categoria": "Movel",
-"estoque": 100
+  "name": "garrafas",
+  "price": "500",
+  "category": "objeto",
+  "stock": "50"
 }
 
 ###
 
-# @name atualizar_informações_produto
-DELETE {{baseUrl}}/products/666708a8ad46652d257f185f
+# @name delete_produto
+DELETE {{baseUrl}}/products/666aa3f04756e59cd86d9e8d
 Authorization: Bearer {{authToken}}

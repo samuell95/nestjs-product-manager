@@ -3,7 +3,6 @@ import {
   Controller,
   Delete,
   Get,
-  HttpException,
   Param,
   Post,
   Put,
@@ -13,7 +12,6 @@ import {
 } from '@nestjs/common'
 import { CreateProductDto } from './dto/CreateProduct.dto'
 import { ProductService } from './product.service'
-import mongoose from 'mongoose'
 import { UpdateProductDto } from './dto/UpdateProduct.dto'
 import { AuthGuard } from '@nestjs/passport'
 import { CurrentUser } from '../auth/current-user-decorator'
@@ -40,13 +38,9 @@ export class ProductController {
 
   @Get(':id')
   async getProductById(@Param('id') id: string) {
-    const isValid = mongoose.Types.ObjectId.isValid(id)
-    if (!isValid) throw new HttpException('Produto não encontrado', 404)
     const findProduct = await this.productService.getProductsById(id)
 
-    if (!findProduct) throw new HttpException('Produto não encontrado', 404)
-
-    return findProduct
+    return { findProduct }
   }
 
   @Put(':id')

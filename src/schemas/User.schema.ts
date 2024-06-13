@@ -2,7 +2,9 @@ import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose'
 import { Product } from './Product.schema'
 import mongoose from 'mongoose'
 
-@Schema()
+@Schema({
+  timestamps: true,
+})
 export class User {
   @Prop({ unique: true, required: [true, 'Email já existe'] })
   email: string

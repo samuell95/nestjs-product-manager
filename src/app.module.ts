@@ -5,8 +5,8 @@ import { MongooseModule } from '@nestjs/mongoose'
 import { ProductModule } from './product/product.module'
 
 import { UsersModule } from './users/users.module'
-import { ConfigModule } from '@nestjs/config'
-import { envSchema } from './env'
+import { ConfigModule, ConfigService } from '@nestjs/config'
+import { Env, envSchema } from './env'
 
 @Module({
   imports: [
@@ -14,7 +14,13 @@ import { envSchema } from './env'
       validate: (env) => envSchema.parse(env),
       isGlobal: true,
     }),
-    MongooseModule.forRoot('mongodb://root:docker@localhost:27017'),
+    MongooseModule.forRootAsync({
+      imports: [ConfigModule],
+      useFactory: async (configService: ConfigService<Env, true>) => ({
+        uri: configService.get('DATABASE_URL'),
+      }),
+      inject: [ConfigService],
+    }),
     UsersModule,
     ProductModule,
   ],

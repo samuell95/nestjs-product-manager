@@ -10,6 +10,4 @@ services:
       MONGODB_ROOT_USER: root
       MONGODB_ROOT_PASSWORD: docker
       MONGODB_DATABASE: product_management
-      MGDATA: /data/mongoDb
-    volumes:
-      - ./data/mg:/data/mongoDb
+    

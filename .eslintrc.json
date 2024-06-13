@@ -2,7 +2,8 @@
   "extends": "@rocketseat/eslint-config/node",
   "rules": {
     "no-useless-constructor": "off",
-    "new-cap":"off"
+    "new-cap":"off",
+    "camelcase":"off"
   }
   
 }

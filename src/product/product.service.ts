@@ -1,6 +1,6 @@
 import { HttpException, Injectable } from '@nestjs/common'
 import { InjectModel } from '@nestjs/mongoose'
-import { Model } from 'mongoose'
+import mongoose, { Model } from 'mongoose'
 import { Product } from '../schemas/Product.schema'
 import { CreateProductDto } from './dto/CreateProduct.dto'
 import { User } from '../schemas/User.schema'
@@ -35,8 +35,14 @@ export class ProductService {
     return this.productModel.find()
   }
 
-  getProductsById(id: string) {
-    return this.productModel.findById(id)
+  async getProductsById(id: string) {
+    const isValid = mongoose.Types.ObjectId.isValid(id)
+    if (!isValid) throw new HttpException('Produto não encontrado', 404)
+    const findProduct = await this.productModel.findById(id)
+
+    if (!findProduct) throw new HttpException('Produto não encontrado', 404)
+
+    return findProduct
   }
 
   async updateProduct(
@@ -44,6 +50,9 @@ export class ProductService {
     user: UserPayload,
     updateProductDto: UpdateProductDto,
   ) {
+    const isValid = mongoose.Types.ObjectId.isValid(id)
+    if (!isValid) throw new HttpException('ID inválido', 400)
+
     const findUser = await this.userModel.findById(user.sub)
     if (!findUser) {
       throw new HttpException('Usuário não encontrado', 404)
@@ -103,6 +112,6 @@ export class ProductService {
     )
     await findUser.save()
 
-    return { message: 'Produto deletado com sucesso', product: deletedProduct }
+    return { message: 'Produto deletado com sucesso' }
   }
 }
